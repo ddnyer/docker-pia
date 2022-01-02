@@ -49,6 +49,27 @@ docker create \
   wiorca/docker-pia
 ```
 
+### With dedicated IP
+
+```
+docker create \
+  --name=docker-pia \
+  -e PUID=1000 \
+  -e PGID=1000 \
+  -e TZ=America/New_York \
+  -e PIA_USERNAME=username \
+  -e PIA_PASSWORD=password \
+  -e PIA_DEBUG_LOGGING=false \
+  -e PIA_PROTOCOL=openvpn \
+  -e PIA_PORT_FORWARD=false \
+  -e PIA_DEDICATED_IP_TOKEN=token \
+  -e PIA_REGION=dedicated-uk-london-000.000.00.00 \
+  -v /location/on/host:/config \
+  --dns 8.8.8.8 \
+  --cap-add NET_ADMIN \
+  --restart unless-stopped \
+  wiorca/docker-pia
+```
 
 ### docker-compose
 

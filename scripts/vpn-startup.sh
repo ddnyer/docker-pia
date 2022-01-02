@@ -32,13 +32,26 @@ if [ ! $? -eq 0 ]; then
     exit 5;
 fi
 
+# Add dedicated IP
+
+if [ ! -z $PIA_DEDICATED_IP_TOKEN ]; then
+    
+    echo -e "$PIA_DEDICATED_IP_TOKEN" > /pia_dedicated_ip_token 
+    piactl dedicatedip add /pia_dedicated_ip_token
+
+    if [ ! $? -eq 0 ]; then
+        exit 5;
+    fi
+
+fi
+
 # Set debug logging
 
 piactl set debuglogging $PIA_DEBUG_LOGGING
 
 if [ ! $? -eq 0 ]; then
     exit 5;
-fi
+fi   
 
 piactl set protocol $PIA_PROTOCOL
 
