@@ -1,7 +1,5 @@
 #! /bin/bash
 
-echo "Setup PIA VPN"
-
 # Create a TUN device
 mkdir -p /dev/net
 mknod /dev/net/tun c 10 200
@@ -28,8 +26,7 @@ fi
 
 # Log in to PIA
 
-echo -e "$PIA_USERNAME\n$PIA_PASSWORD\n" > /pia_credentials
-cat /pia_credentials
+echo -e "$PIA_USERNAME\n$PIA_PASSWORD" > /pia_credentials
 piactl login /pia_credentials
 
 if [ ! $? -eq 0 ]; then
@@ -48,10 +45,8 @@ fi
 
 # Add dedicated IP
 
-echo "Set dedicate IP"
 if [ ! -z $PIA_DEDICATED_IP_TOKEN ]; then
 
-    echo "Add dedicated IP region"    
     echo -e "$PIA_DEDICATED_IP_TOKEN" > /pia_dedicated_ip_token 
     piactl dedicatedip add /pia_dedicated_ip_token
 
